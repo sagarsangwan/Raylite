@@ -3,11 +3,13 @@
 import Editor from "@monaco-editor/react";
 import { useState, useRef } from "react";
 import { toPng } from "html-to-image";
-
+import CodeTools from "./CodeTools";
+import { useSelector } from "react-redux";
 export default function CodeEditor() {
   const [code, setCode] = useState(`function helloWorld() {
   console.log("Hello, world!");
 }`);
+  const codeLanguage = useSelector((state) => state.code.codeLanguage);
   const editorRef = useRef(null);
 
   const handleExport = async () => {
@@ -33,8 +35,9 @@ export default function CodeEditor() {
       >
         <Editor
           height="100%"
-          defaultLanguage="javascript"
+          //   defaultLanguage="javascript"
           value={code}
+          language={codeLanguage}
           onChange={(value) => setCode(value || "")}
           theme="vs-dark"
           options={{
@@ -47,14 +50,9 @@ export default function CodeEditor() {
           }}
         />
       </div>
+      <CodeTools handleExport={handleExport} />
 
       {/* Export button */}
-      <button
-        onClick={handleExport}
-        className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-      >
-        Export as PNG
-      </button>
     </div>
   );
 }
