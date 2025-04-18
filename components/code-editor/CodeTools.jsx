@@ -39,6 +39,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
 
 export const allCodingLanguage = [
   // Web Languages
@@ -409,7 +410,7 @@ export default function CodeTools() {
           </PopoverContent>
         </Popover>
       </div>
-      <div className="flex self-center  flex-col">
+      <div className="flex self-center items-center  flex-col">
         Dark Mode
         <Switch
           checked={mode === "vs-dark"}

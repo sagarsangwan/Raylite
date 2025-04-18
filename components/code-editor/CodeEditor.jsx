@@ -6,6 +6,7 @@ import { toJpeg, toPng } from "html-to-image";
 import CodeTools from "./CodeTools";
 import { useSelector } from "react-redux";
 import Navbar from "../Navbar";
+import { Slider } from "../ui/slider";
 export default function CodeEditor() {
   const [code, setCode] = useState(`def my_function():
   print("Hello from a function") 
@@ -14,21 +15,17 @@ export default function CodeEditor() {
     (state) => state.codeEditor
   );
   const editorRef = useRef(null);
-  const monacoref = useRef(null);
   // console.log(mode);
   const handleExport = async (formatOfImage) => {
     console.log(formatOfImage);
-    if (monacoref.current === null) return;
+    if (editorRef.current === null) return;
     try {
       if (formatOfImage === "png") {
-        const dataUrl = await toPng(monacoref.current);
-        const link = document.createElement("a");
-        link.download = `${codeFileName}.png`;
-        link.href = dataUrl;
-        link.click();
-      }
-      if (formatOfImage === "jpeg") {
-        const dataUrl = await toJpeg(monacoref.current);
+        const dataUrl =
+          formatOfImage === "png"
+            ? await toPng(editorRef.current)
+            : await toJpeg(editorRef.current);
+
         const link = document.createElement("a");
         link.download = `${codeFileName}.jpeg`;
         link.href = dataUrl;
@@ -40,11 +37,11 @@ export default function CodeEditor() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 mt-5 min-w-sm  ">
+    <div className="flex flex-col items-center gap-4  min-w-sm  ">
       <Navbar handleExport={handleExport} />
       {/* Editor container */}
       <div
-        ref={monacoref}
+        ref={editorRef}
         style={{ resize: "horizontal", overflow: "auto" }}
         className={`max-w-4xl min-w-xs  ${
           mode === "vs-dark" ? "dark" : "light"
@@ -109,6 +106,7 @@ export default function CodeEditor() {
           />
         </div>
       </div>
+      <Slider defaultValue={[33]} max={100} step={1} />
 
       {/* Export / Tools */}
       <CodeTools />
