@@ -16,8 +16,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-import { setCodeLanguage } from "@/lib/features/code/codeSlice";
+import { toggleMode } from "@/lib/features/code/codeEditorSlice";
+import { setCodeLanguage } from "@/lib/features/code/codeEditorSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FileCode,
@@ -38,6 +38,7 @@ import {
   BadgeHelp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
 
 const allCodingLanguage = [
   // Web Languages
@@ -268,7 +269,7 @@ const allCodingLanguage = [
 ];
 
 export default function CodeTools({ handleExport }) {
-  const codeLanguage = useSelector((state) => state.code.codeLanguage);
+  const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
   return (
@@ -346,7 +347,7 @@ export default function CodeTools({ handleExport }) {
               ? allCodingLanguage.find(
                   (codingLanguage) => codingLanguage.value === codeLanguage
                 )?.label
-              : "Select framework..."}
+              : "Select language..."}
             <ChevronsUpDown className="opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -382,6 +383,10 @@ export default function CodeTools({ handleExport }) {
           </Command>
         </PopoverContent>
       </Popover>
+      <Switch
+        checked={mode === "vs-dark"}
+        onCheckedChange={() => dispatch(toggleMode())}
+      />
 
       <button
         onClick={handleExport}

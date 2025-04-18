@@ -9,9 +9,9 @@ export default function CodeEditor() {
   const [code, setCode] = useState(`function helloWorld() {
   console.log("Hello, world!");
 }`);
-  const codeLanguage = useSelector((state) => state.code.codeLanguage);
+  const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
   const editorRef = useRef(null);
-
+  // console.log(mode);
   const handleExport = async () => {
     if (editorRef.current === null) return;
 
@@ -39,7 +39,7 @@ export default function CodeEditor() {
           value={code}
           language={codeLanguage}
           onChange={(value) => setCode(value || "")}
-          theme="vs-dark"
+          theme={mode}
           options={{
             fontSize: 16,
             minimap: { enabled: false },
