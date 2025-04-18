@@ -40,7 +40,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 
-const allCodingLanguage = [
+export const allCodingLanguage = [
   // Web Languages
   {
     id: 1,
@@ -50,6 +50,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "javascript",
+    extension: "js",
   },
   {
     id: 2,
@@ -59,6 +60,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "typescript",
+    extension: "ts",
   },
   {
     id: 3,
@@ -68,6 +70,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "html",
+    extension: "html",
   },
   {
     id: 4,
@@ -77,6 +80,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "css",
+    extension: "css",
   },
 
   // Backend Languages
@@ -88,6 +92,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "python",
+    extension: "py",
   },
   {
     id: 6,
@@ -97,6 +102,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "java",
+    extension: "java",
   },
   {
     id: 7,
@@ -106,6 +112,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "php",
+    extension: "php",
   },
   {
     id: 8,
@@ -115,6 +122,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "ruby",
+    extension: "rb",
   },
   {
     id: 9,
@@ -124,6 +132,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "csharp",
+    extension: "cs",
   },
   {
     id: 10,
@@ -133,6 +142,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "go",
+    extension: "go",
   },
 
   // Low-level / Compiled
@@ -144,6 +154,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "c",
+    extension: "c",
   },
   {
     id: 12,
@@ -153,6 +164,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "cpp",
+    extension: "cpp",
   },
   {
     id: 13,
@@ -162,6 +174,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "rust",
+    extension: "rs",
   },
   {
     id: 14,
@@ -171,6 +184,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "zig",
+    extension: "zig",
   },
 
   // Data & Scripting
@@ -182,6 +196,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "r",
+    extension: "r",
   },
   {
     id: 16,
@@ -191,6 +206,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "sql",
+    extension: "sql",
   },
   {
     id: 17,
@@ -200,6 +216,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "shell",
+    extension: "sh",
   },
   {
     id: 18,
@@ -209,6 +226,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "powershell",
+    extension: "ps1",
   },
   {
     id: 19,
@@ -218,6 +236,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "perl",
+    extension: "pl",
   },
 
   // Other / Markup
@@ -229,6 +248,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "json",
+    extension: "json",
   },
   {
     id: 21,
@@ -238,6 +258,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "yaml",
+    extension: "yaml",
   },
   {
     id: 22,
@@ -247,6 +268,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "markdown",
+    extension: "md",
   },
   {
     id: 23,
@@ -256,6 +278,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "xml",
+    extension: "xml",
   },
   {
     id: 24,
@@ -265,6 +288,7 @@ const allCodingLanguage = [
       </>
     ),
     value: "latex",
+    extension: "tex",
   },
 ];
 
