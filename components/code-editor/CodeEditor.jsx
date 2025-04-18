@@ -8,25 +8,29 @@ import { useSelector } from "react-redux";
 import Navbar from "../Navbar";
 export default function CodeEditor() {
   const [code, setCode] = useState(`def my_function():
-  print("Hello from a function")`);
-  const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
+  print("Hello from a function") 
+  `);
+  const { codeLanguage, mode, codeFileName } = useSelector(
+    (state) => state.codeEditor
+  );
   const editorRef = useRef(null);
+  const monacoref = useRef(null);
   // console.log(mode);
   const handleExport = async (formatOfImage) => {
     console.log(formatOfImage);
-    if (editorRef.current === null) return;
+    if (monacoref.current === null) return;
     try {
       if (formatOfImage === "png") {
-        const dataUrl = await toPng(editorRef.current);
+        const dataUrl = await toPng(monacoref.current);
         const link = document.createElement("a");
-        link.download = "code-image.png";
+        link.download = `${codeFileName}.png`;
         link.href = dataUrl;
         link.click();
       }
       if (formatOfImage === "jpeg") {
-        const dataUrl = await toJpeg(editorRef.current);
+        const dataUrl = await toJpeg(monacoref.current);
         const link = document.createElement("a");
-        link.download = "code-image.png";
+        link.download = `${codeFileName}.jpeg`;
         link.href = dataUrl;
         link.click();
       }
@@ -36,13 +40,13 @@ export default function CodeEditor() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 mt-5">
+    <div className="flex flex-col items-center gap-4 mt-5 min-w-sm  ">
       <Navbar handleExport={handleExport} />
       {/* Editor container */}
       <div
-        ref={editorRef}
+        ref={monacoref}
         style={{ resize: "horizontal", overflow: "auto" }}
-        className={`min-w-sm  max-w-4xl h-90vh  ${
+        className={`max-w-4xl min-w-xs  ${
           mode === "vs-dark" ? "dark" : "light"
         }`}
       >
@@ -63,21 +67,26 @@ export default function CodeEditor() {
 
           {/* Code editor */}
           <Editor
-            height="440px"
-            value={code}
+            // value={code}
+            defaultValue={code}
             language={codeLanguage}
-            onChange={(value) => setCode(value || "")}
+            onChange={(value) => setCode(value ?? "")}
             theme={mode}
             // onMount={(editor) => {
             //   editorRef.current = editor;
             //   const updateHeight = () => {
-            //     const height = editor.getContentHeight();
+            //     var height = editor.getContentHeight();
             //     console.log(height);
+            //     // if (height < 200) {
+            //     //   height = 220;
+            //     // }
+            //     console.log("heightt", height);
             //     editor.layout({ height });
             //   };
             //   editor.onDidContentSizeChange(updateHeight);
             //   updateHeight();
             // }}
+            height="440px"
             options={{
               fontSize: 16,
               lineNumbers: "off",
@@ -92,8 +101,9 @@ export default function CodeEditor() {
               renderLineHighlight: "none",
               scrollbar: {
                 vertical: "hidden",
-                horizontal: "auto",
+                horizontal: "hidden",
               },
+
               automaticLayout: true,
             }}
           />
