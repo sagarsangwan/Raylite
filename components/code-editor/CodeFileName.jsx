@@ -1,6 +1,8 @@
 import { allCodingLanguage } from "./CodeTools";
 import { useState } from "react";
 import { Input } from "../ui/input";
+import { useSelector, useDispatch } from "react-redux";
+import { setCodeFileName } from "@/lib/features/code/codeEditorSlice";
 
 function CodeFileName({ codeLanguage }) {
   const selectedCodingLanguage = allCodingLanguage.find(
@@ -8,13 +10,21 @@ function CodeFileName({ codeLanguage }) {
   );
   const codeLanguageExtension = selectedCodingLanguage?.extension || "";
 
-  const [fileName, setFileName] = useState("untitled");
+  const fileName = useSelector((state) => state.codeEditor.codeFileName);
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
 
-  //   const handleChange = (e) => {
-  //     const value = e.target.value.replace(/\..*$/, "");
-  //     setFileName(value);
-  //   };
+  const handleChange = (e) => {
+    let inputValue = e.target.value;
+
+    // remove extension if user types it manually
+    if (codeLanguageExtension) {
+      const regex = new RegExp(`(\\.${codeLanguageExtension})+$`);
+      inputValue = inputValue.replace(regex, "");
+    }
+
+    dispatch(setCodeFileName(inputValue));
+  };
 
   const handleBlur = () => {
     setIsEditing(false);
@@ -35,11 +45,11 @@ function CodeFileName({ codeLanguage }) {
         <div className="relative w-48">
           <Input
             value={fileName}
-            onChange={(e) => setFileName(e.target.value)}
+            onChange={handleChange}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             autoFocus
-            className="pr-10 border-0 bg-transparent text-sm font-medium"
+            className="pr-12 border-0 bg-transparent text-sm font-medium"
           />
           {codeLanguageExtension && (
             <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">

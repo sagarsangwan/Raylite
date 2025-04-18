@@ -2,9 +2,10 @@
 import CodeFileName from "./CodeFileName";
 import Editor from "@monaco-editor/react";
 import { useState, useRef } from "react";
-import { toPng } from "html-to-image";
+import { toJpeg, toPng } from "html-to-image";
 import CodeTools from "./CodeTools";
 import { useSelector } from "react-redux";
+import Navbar from "../Navbar";
 export default function CodeEditor() {
   const [code, setCode] = useState(`function helloWorld() {
   console.log("Hello, world!");
@@ -12,22 +13,32 @@ export default function CodeEditor() {
   const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
   const editorRef = useRef(null);
   // console.log(mode);
-  const handleExport = async () => {
+  const handleExport = async (formatOfImage) => {
+    console.log(formatOfImage);
     if (editorRef.current === null) return;
-
     try {
-      const dataUrl = await toPng(editorRef.current);
-      const link = document.createElement("a");
-      link.download = "code-image.png";
-      link.href = dataUrl;
-      link.click();
-    } catch (err) {
-      console.error("Export failed", err);
+      if (formatOfImage === "png") {
+        const dataUrl = await toPng(editorRef.current);
+        const link = document.createElement("a");
+        link.download = "code-image.png";
+        link.href = dataUrl;
+        link.click();
+      }
+      if (formatOfImage === "jpeg") {
+        const dataUrl = await toJpeg(editorRef.current);
+        const link = document.createElement("a");
+        link.download = "code-image.png";
+        link.href = dataUrl;
+        link.click();
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
     <div className="flex flex-col items-center gap-4 mt-5">
+      <Navbar handleExport={handleExport} />
       {/* Editor container */}
       <div
         ref={editorRef}
