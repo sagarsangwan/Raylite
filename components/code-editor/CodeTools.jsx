@@ -292,7 +292,7 @@ export const allCodingLanguage = [
   },
 ];
 
-export default function CodeTools({ handleExport }) {
+export default function CodeTools() {
   const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
@@ -415,15 +415,6 @@ export default function CodeTools({ handleExport }) {
           checked={mode === "vs-dark"}
           onCheckedChange={() => dispatch(toggleMode())}
         />
-      </div>
-      <div className="">
-        <button
-          size="sm"
-          onClick={handleExport}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-        >
-          Export as PNG
-        </button>
       </div>
     </div>
   );
