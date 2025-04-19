@@ -2,7 +2,7 @@ import CodeEditor from "@/components/code-editor/CodeEditor";
 
 export default function Home() {
   return (
-    <main>
+    <main className="h-full ">
       <CodeEditor />
     </main>
   );

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Check, ChevronsUpDown } from "lucide-react";
@@ -39,7 +40,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "../ui/slider";
 
 export const allCodingLanguage = [
   // Web Languages
@@ -293,13 +294,15 @@ export const allCodingLanguage = [
   },
 ];
 
-export default function CodeTools() {
+export default function CodeTools({ editorWidth, setEditorWidth }) {
   const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
   const [open, setOpen] = React.useState(false);
+
   const dispatch = useDispatch();
   return (
-    <div className=" flex gap-3">
-      {/* <Select>
+    <>
+      <div className=" flex gap-3">
+        {/* <Select>
         <SelectTrigger className="w-[280px]">
           <SelectValue placeholder="Select a timezone" />
         </SelectTrigger>
@@ -360,63 +363,76 @@ export default function CodeTools() {
           </SelectGroup>
         </SelectContent>
       </Select> */}
-      <div>
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open}
-              className="w-[200px] justify-between"
-            >
-              {codeLanguage
-                ? allCodingLanguage.find(
-                    (codingLanguage) => codingLanguage.value === codeLanguage
-                  )?.label
-                : "Select language..."}
-              <ChevronsUpDown className="opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[200px] p-0">
-            <Command>
-              <CommandInput placeholder="Search Language..." className="h-9" />
-              <CommandList>
-                <CommandEmpty>No Language found.</CommandEmpty>
-                <CommandGroup>
-                  {allCodingLanguage.map((codinglanguage) => (
-                    <CommandItem
-                      key={codinglanguage.value}
-                      value={codinglanguage.value}
-                      onSelect={(currentValue) => {
-                        // setValue(currentValue === value ? "" : currentValue);
-                        dispatch(setCodeLanguage(currentValue));
-                        setOpen(false);
-                      }}
-                    >
-                      {codinglanguage.label}
-                      <Check
-                        className={cn(
-                          "ml-auto",
-                          codeLanguage === codinglanguage.value
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        </Popover>
+        <div>
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open}
+                className="w-[200px] justify-between"
+              >
+                {codeLanguage
+                  ? allCodingLanguage.find(
+                      (codingLanguage) => codingLanguage.value === codeLanguage
+                    )?.label
+                  : "Select language..."}
+                <ChevronsUpDown className="opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] p-0">
+              <Command>
+                <CommandInput
+                  placeholder="Search Language..."
+                  className="h-9"
+                />
+                <CommandList>
+                  <CommandEmpty>No Language found.</CommandEmpty>
+                  <CommandGroup>
+                    {allCodingLanguage.map((codinglanguage) => (
+                      <CommandItem
+                        key={codinglanguage.value}
+                        value={codinglanguage.value}
+                        onSelect={(currentValue) => {
+                          // setValue(currentValue === value ? "" : currentValue);
+                          dispatch(setCodeLanguage(currentValue));
+                          setOpen(false);
+                        }}
+                      >
+                        {codinglanguage.label}
+                        <Check
+                          className={cn(
+                            "ml-auto",
+                            codeLanguage === codinglanguage.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
+        <div className="flex self-center items-center  flex-col">
+          Dark Mode
+          <Switch
+            checked={mode === "vs-dark"}
+            onCheckedChange={() => dispatch(toggleMode())}
+          />
+        </div>
       </div>
-      <div className="flex self-center items-center  flex-col">
-        Dark Mode
-        <Switch
-          checked={mode === "vs-dark"}
-          onCheckedChange={() => dispatch(toggleMode())}
+      <div className="w-full max-w-sm">
+        <Slider
+          max={896}
+          min={320}
+          step={1}
+          defaultValue={[editorWidth]}
+          onValueChange={(value) => setEditorWidth(value[0])}
         />
       </div>
-    </div>
+    </>
   );
 }

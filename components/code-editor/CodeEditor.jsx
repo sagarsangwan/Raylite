@@ -11,6 +11,7 @@ export default function CodeEditor() {
   const [code, setCode] = useState(`def my_function():
   print("Hello from a function") 
   `);
+  const [editorWidth, setEditorWidth] = useState(320);
   const { codeLanguage, mode, codeFileName } = useSelector(
     (state) => state.codeEditor
   );
@@ -20,32 +21,29 @@ export default function CodeEditor() {
     console.log(formatOfImage);
     if (editorRef.current === null) return;
     try {
-      if (formatOfImage === "png") {
-        const dataUrl =
-          formatOfImage === "png"
-            ? await toPng(editorRef.current)
-            : await toJpeg(editorRef.current);
-
-        const link = document.createElement("a");
-        link.download = `${codeFileName}.jpeg`;
-        link.href = dataUrl;
-        link.click();
-      }
+      const dataUrl =
+        formatOfImage === "png"
+          ? await toPng(editorRef.current)
+          : await toJpeg(editorRef.current);
+      const link = document.createElement("a");
+      link.download = `${codeFileName}.${formatOfImage}`;
+      link.href = dataUrl;
+      link.click();
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-4  min-w-sm  ">
+    <div className="flex flex-col items-center gap-4  min-w-sm h-full min-h-auto ">
       <Navbar handleExport={handleExport} />
       {/* Editor container */}
       <div
         ref={editorRef}
-        style={{ resize: "horizontal", overflow: "auto" }}
+        style={{ width: `${editorWidth}px` }}
         className={`max-w-4xl min-w-xs  ${
           mode === "vs-dark" ? "dark" : "light"
-        }`}
+        } `}
       >
         <div className="rounded-xl overflow-hidden shadow-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-[#1e1e1e]">
           <div className="flex items-center justify-between px-4 py-2 bg-zinc-100 dark:bg-zinc-800 border-b dark:border-zinc-700">
@@ -106,10 +104,9 @@ export default function CodeEditor() {
           />
         </div>
       </div>
-      <Slider defaultValue={[33]} max={100} step={1} />
 
       {/* Export / Tools */}
-      <CodeTools />
+      <CodeTools editorWidth={editorWidth} setEditorWidth={setEditorWidth} />
     </div>
   );
 }
