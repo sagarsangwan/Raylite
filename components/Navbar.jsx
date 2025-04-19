@@ -10,6 +10,11 @@ import {
 import { ChevronDown } from "lucide-react";
 
 export default function Navbar({ handleExport }) {
+  const copyToClipboard = async () => {
+    const currentLink = `https://raylite.vercel.app/${window.location.hash}`;
+    console.log(currentLink);
+    return await navigator.clipboard.writeText(currentLink);
+  };
   return (
     <nav className="w-full px-6 py-3 border-b bg-white dark:bg-zinc-900 dark:border-zinc-700 flex justify-between items-center shadow-sm">
       {/* Logo */}
@@ -32,8 +37,8 @@ export default function Navbar({ handleExport }) {
           <DropdownMenuItem onClick={() => handleExport("jpeg")}>
             Export as JPEG
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleExport("svg")}>
-            Export as SVG
+          <DropdownMenuItem onClick={copyToClipboard}>
+            Copy Link
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
