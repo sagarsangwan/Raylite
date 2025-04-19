@@ -4,18 +4,28 @@ import Editor from "@monaco-editor/react";
 import { useState, useRef, useEffect } from "react";
 import { toJpeg, toPng } from "html-to-image";
 import CodeTools from "./CodeTools";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../Navbar";
-import { Slider } from "../ui/slider";
-import { readFromHash } from "@/lib/hashUtils";
+import { readFromHash, saveToHash } from "@/lib/hashUtils";
+import {
+  setCode,
+  setCodeFileName,
+  setCodeLanguage,
+  toggleMode,
+} from "@/lib/features/code/codeEditorSlice";
 export default function CodeEditor() {
-  const [code, setCode] = useState(`def my_function():
-  print("Hello from a function") 
-  `);
+  // const code = useSelector((state) => state.codeEditor.code);
+  const dispatch = useDispatch();
   const [editorWidth, setEditorWidth] = useState(320);
-  const { codeLanguage, mode, codeFileName } = useSelector(
+  const { codeLanguage, mode, codeFileName, code } = useSelector(
     (state) => state.codeEditor
   );
+  const dataToSave = {
+    code: code,
+    codeLanguage: codeLanguage,
+    mode: mode,
+    codeFileName: codeFileName,
+  };
   const editorRef = useRef(null);
   // console.log(mode);
   const handleExport = async (formatOfImage) => {
@@ -36,8 +46,20 @@ export default function CodeEditor() {
   };
   useEffect(() => {
     const dataFromHash = readFromHash();
-    console.log(dataFromHash);
+
+    if (dataFromHash) {
+      dispatch(setCode(dataFromHash.code));
+      dispatch(setCodeLanguage(dataFromHash.codeLanguage));
+      dispatch(setCodeFileName(dataFromHash.codeFileName));
+    }
   }, []);
+  useEffect(() => {
+    try {
+      saveToHash(dataToSave);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [codeLanguage, code, mode, codeFileName]);
 
   return (
     <div className="flex flex-col items-center gap-4  min-w-sm h-full min-h-auto ">
@@ -70,7 +92,7 @@ export default function CodeEditor() {
             // value={code}
             defaultValue={code}
             language={codeLanguage}
-            onChange={(value) => setCode(value ?? "")}
+            onChange={(value) => dispatch(setCode(value))}
             theme={mode}
             // onMount={(editor) => {
             //   editorRef.current = editor;
