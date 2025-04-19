@@ -11,14 +11,14 @@ import {
   setCode,
   setCodeFileName,
   setCodeLanguage,
+  setEditorWidth,
   setMode,
   toggleMode,
 } from "@/lib/features/code/codeEditorSlice";
 export default function CodeEditor() {
   // const code = useSelector((state) => state.codeEditor.code);
   const dispatch = useDispatch();
-  const [editorWidth, setEditorWidth] = useState(320);
-  const { codeLanguage, mode, codeFileName, code } = useSelector(
+  const { codeLanguage, mode, codeFileName, code, editorWidth } = useSelector(
     (state) => state.codeEditor
   );
   const dataToSave = {
@@ -26,6 +26,7 @@ export default function CodeEditor() {
     codeLanguage: codeLanguage,
     mode: mode,
     codeFileName: codeFileName,
+    editorWidth: editorWidth,
   };
   const editorRef = useRef(null);
   // console.log(mode);
@@ -53,6 +54,7 @@ export default function CodeEditor() {
       dispatch(setCodeLanguage(dataFromHash.codeLanguage));
       dispatch(setCodeFileName(dataFromHash.codeFileName));
       dispatch(setMode(dataFromHash.mode));
+      dispatch(setEditorWidth(dataFromHash.editorWidth));
     }
   }, []);
   useEffect(() => {
@@ -61,7 +63,7 @@ export default function CodeEditor() {
     } catch (err) {
       console.log(err);
     }
-  }, [codeLanguage, code, mode, codeFileName]);
+  }, [codeLanguage, code, mode, codeFileName, editorWidth]);
 
   return (
     <div className="flex flex-col items-center gap-4  min-w-sm h-full min-h-auto ">
@@ -135,7 +137,7 @@ export default function CodeEditor() {
       </div>
 
       {/* Export / Tools */}
-      <CodeTools editorWidth={editorWidth} setEditorWidth={setEditorWidth} />
+      <CodeTools />
     </div>
   );
 }

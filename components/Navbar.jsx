@@ -8,12 +8,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import { toast } from "sonner";
 
 export default function Navbar({ handleExport }) {
   const copyToClipboard = async () => {
     const currentLink = `https://raylite.vercel.app/${window.location.hash}`;
     console.log(currentLink);
-    return await navigator.clipboard.writeText(currentLink);
+    await navigator.clipboard.writeText(currentLink);
+    toast.success("copied to clipboard");
   };
   return (
     <nav className="w-full px-6 py-3 border-b bg-white dark:bg-zinc-900 dark:border-zinc-700 flex justify-between items-center shadow-sm">

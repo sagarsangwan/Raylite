@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { setMode } from "@/lib/features/code/codeEditorSlice";
+import { setEditorWidth, setMode } from "@/lib/features/code/codeEditorSlice";
 import { setCodeLanguage } from "@/lib/features/code/codeEditorSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -294,8 +294,10 @@ export const allCodingLanguage = [
   },
 ];
 
-export default function CodeTools({ editorWidth, setEditorWidth }) {
-  const { codeLanguage, mode } = useSelector((state) => state.codeEditor);
+export default function CodeTools() {
+  const { codeLanguage, mode, editorWidth } = useSelector(
+    (state) => state.codeEditor
+  );
   const [open, setOpen] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -434,7 +436,7 @@ export default function CodeTools({ editorWidth, setEditorWidth }) {
           min={320}
           step={1}
           defaultValue={[editorWidth]}
-          onValueChange={(value) => setEditorWidth(value[0])}
+          onValueChange={(value) => dispatch(setEditorWidth(value[0]))}
         />
       </div>
     </>
