@@ -15,6 +15,7 @@ import {
   setMode,
   toggleMode,
 } from "@/lib/features/code/codeEditorSlice";
+import { toast } from "sonner";
 export default function CodeEditor() {
   // const code = useSelector((state) => state.codeEditor.code);
   const dispatch = useDispatch();
@@ -29,9 +30,8 @@ export default function CodeEditor() {
     editorWidth: editorWidth,
   };
   const editorRef = useRef(null);
-  // console.log(mode);
+
   const handleExport = async (formatOfImage) => {
-    console.log(formatOfImage);
     if (editorRef.current === null) return;
     try {
       const dataUrl =
@@ -43,7 +43,7 @@ export default function CodeEditor() {
       link.href = dataUrl;
       link.click();
     } catch (error) {
-      console.log(error);
+      toast.error("something went Wrong try after sometime");
     }
   };
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function CodeEditor() {
     try {
       saveToHash(dataToSave);
     } catch (err) {
-      console.log(err);
+      toast.error("something went Wrong try after sometime");
     }
   }, [codeLanguage, code, mode, codeFileName, editorWidth]);
 
