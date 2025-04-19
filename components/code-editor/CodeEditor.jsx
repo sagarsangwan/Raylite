@@ -11,6 +11,7 @@ import {
   setCode,
   setCodeFileName,
   setCodeLanguage,
+  setMode,
   toggleMode,
 } from "@/lib/features/code/codeEditorSlice";
 export default function CodeEditor() {
@@ -51,6 +52,7 @@ export default function CodeEditor() {
       dispatch(setCode(dataFromHash.code));
       dispatch(setCodeLanguage(dataFromHash.codeLanguage));
       dispatch(setCodeFileName(dataFromHash.codeFileName));
+      dispatch(setMode(dataFromHash.mode));
     }
   }, []);
   useEffect(() => {
@@ -93,7 +95,7 @@ export default function CodeEditor() {
             defaultValue={code}
             language={codeLanguage}
             onChange={(value) => dispatch(setCode(value))}
-            theme={mode}
+            theme={`vs-${mode}`}
             // onMount={(editor) => {
             //   editorRef.current = editor;
             //   const updateHeight = () => {

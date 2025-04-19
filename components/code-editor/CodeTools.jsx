@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { toggleMode } from "@/lib/features/code/codeEditorSlice";
+import { setMode } from "@/lib/features/code/codeEditorSlice";
 import { setCodeLanguage } from "@/lib/features/code/codeEditorSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -419,8 +419,12 @@ export default function CodeTools({ editorWidth, setEditorWidth }) {
         <div className="flex self-center items-center  flex-col">
           Dark Mode
           <Switch
-            checked={mode === "vs-dark"}
-            onCheckedChange={() => dispatch(toggleMode())}
+            checked={mode === "dark"}
+            onCheckedChange={() =>
+              mode === "dark"
+                ? dispatch(setMode("light"))
+                : dispatch(setMode("dark"))
+            }
           />
         </div>
       </div>
