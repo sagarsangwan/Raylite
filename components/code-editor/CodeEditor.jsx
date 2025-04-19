@@ -7,6 +7,7 @@ import CodeTools from "./CodeTools";
 import { useSelector } from "react-redux";
 import Navbar from "../Navbar";
 import { Slider } from "../ui/slider";
+import { readFromHash } from "@/lib/hashUtils";
 export default function CodeEditor() {
   const [code, setCode] = useState(`def my_function():
   print("Hello from a function") 
@@ -33,6 +34,10 @@ export default function CodeEditor() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const dataFromHash = readFromHash();
+    console.log(dataFromHash);
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-4  min-w-sm h-full min-h-auto ">
