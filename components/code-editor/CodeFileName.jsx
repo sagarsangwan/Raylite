@@ -4,13 +4,16 @@ import { Input } from "../ui/input";
 import { useSelector, useDispatch } from "react-redux";
 import { setCodeFileName } from "@/lib/features/code/codeEditorSlice";
 
-function CodeFileName({ codeLanguage }) {
+function CodeFileName() {
+  const { codeLanguage, codeFileName } = useSelector(
+    (state) => state.codeEditor
+  );
+
   const selectedCodingLanguage = allCodingLanguage.find(
     (language) => language.value === codeLanguage
   );
   const codeLanguageExtension = selectedCodingLanguage?.extension || "";
 
-  const fileName = useSelector((state) => state.codeEditor.codeFileName);
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -44,7 +47,7 @@ function CodeFileName({ codeLanguage }) {
       {isEditing ? (
         <div className="relative w-48">
           <Input
-            value={fileName}
+            value={codeFileName}
             onChange={handleChange}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
@@ -59,7 +62,7 @@ function CodeFileName({ codeLanguage }) {
         </div>
       ) : (
         <span>
-          {fileName +
+          {codeFileName +
             (codeLanguageExtension ? `.${codeLanguageExtension}` : "")}
         </span>
       )}
