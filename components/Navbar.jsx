@@ -30,7 +30,11 @@ export default function Navbar({ handleExport }) {
       {/* Export Button with Dropdown */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-2 text-xs"
+          >
             Export
             <ChevronDown className="w-4 h-4" />
           </Button>
