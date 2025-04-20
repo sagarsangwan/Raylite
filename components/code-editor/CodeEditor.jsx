@@ -13,16 +13,16 @@ import {
   setCodeLanguage,
   setEditorWidth,
   setMode,
-  toggleMode,
 } from "@/lib/features/code/codeEditorSlice";
 import { toast } from "sonner";
 import EditorHeader from "./EditorHeader";
 export default function CodeEditor() {
-  // const code = useSelector((state) => state.codeEditor.code);
   const dispatch = useDispatch();
   const { codeLanguage, mode, codeFileName, code, editorWidth } = useSelector(
     (state) => state.codeEditor
   );
+  const editorRef = useRef(null);
+  const editorContentRef = useRef(null);
   const dataToSave = {
     code: code,
     codeLanguage: codeLanguage,
@@ -30,23 +30,28 @@ export default function CodeEditor() {
     codeFileName: codeFileName,
     editorWidth: editorWidth,
   };
-  const editorRef = useRef(null);
+  const [isEditorReady, setIsEditorReady] = useState(false);
+  const handleEditorMount = (editor) => {
+    editorRef.current = editor;
 
-  const handleExport = async (formatOfImage) => {
-    if (editorRef.current === null) return;
-    try {
-      const dataUrl =
-        formatOfImage === "png"
-          ? await toPng(editorRef.current)
-          : await toJpeg(editorRef.current);
-      const link = document.createElement("a");
-      link.download = `${codeFileName}.${formatOfImage}`;
-      link.href = dataUrl;
-      link.click();
-    } catch (error) {
-      toast.error("something went Wrong try after sometime");
-    }
+    const updateHeight = () => {
+      var height = editor.getContentHeight();
+      var width = editor.getContentWidth();
+      if (width < 320) {
+        width = 320;
+      }
+      if (width > 896) {
+        width = 896;
+      }
+      console.log(width);
+      dispatch(setEditorWidth(width));
+      editor.layout({ height, width });
+    };
+    editor.onDidContentSizeChange(updateHeight);
+    updateHeight();
+    setIsEditorReady(true);
   };
+
   useEffect(() => {
     const dataFromHash = readFromHash();
 
@@ -65,67 +70,76 @@ export default function CodeEditor() {
       toast.error("something went Wrong try after sometime");
     }
   }, [codeLanguage, code, mode, codeFileName, editorWidth]);
+  const handleExport = async (formatOfImage) => {
+    if (!isEditorReady || editorContentRef.current === null) {
+      toast.warn("Editor is not ready yet. Please wait.");
+      return;
+    }
+    console.log(editorContentRef.current);
+    try {
+      const dataUrl =
+        formatOfImage === "png"
+          ? await toPng(editorContentRef.current)
+          : await toJpeg(editorContentRef.current);
 
+      const link = document.createElement("a");
+      link.download = `${codeFileName}.${formatOfImage}`;
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.log(error);
+      toast.error("something went Wrong try after sometime");
+    }
+  };
   return (
     <div className="flex flex-col items-center gap-4  min-w-sm h-full min-h-auto ">
-      <Navbar handleExport={handleExport} />
-      {/* Editor container */}
-      <div
-        ref={editorRef}
-        style={{ width: `${editorWidth}px` }}
-        className={`max-w-4xl min-w-xs  ${
-          mode === "vs-dark" ? "dark" : "light"
-        } `}
-      >
-        <div className="rounded-xl overflow-hidden shadow-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-[#1e1e1e]">
-          <EditorHeader />
-          <Editor
-            // value={code}
-            defaultValue={code}
-            language={codeLanguage}
-            onChange={(value) => dispatch(setCode(value))}
-            theme={`vs-${mode}`}
-            // onMount={(editor) => {
-            //   editorRef.current = editor;
-            //   const updateHeight = () => {
-            //     var height = editor.getContentHeight();
-            //     console.log(height);
-            //     // if (height < 200) {
-            //     //   height = 220;
-            //     // }
-            //     console.log("heightt", height);
-            //     editor.layout({ height });
-            //   };
-            //   editor.onDidContentSizeChange(updateHeight);
-            //   updateHeight();
-            // }}
-            height="440px"
-            options={{
-              fontSize: 16,
-              lineNumbers: "off",
-              glyphMargin: false,
-              folding: false,
-              lineNumbersMinChars: 0,
-              overviewRulerLanes: 0,
-              hideCursorInOverviewRuler: true,
-              scrollBeyondLastLine: false,
-              minimap: { enabled: false },
-              padding: { top: 20, bottom: 20 },
-              renderLineHighlight: "none",
-              scrollbar: {
-                vertical: "hidden",
-                horizontal: "hidden",
-              },
-              formatOnPaste: "true",
-              // format
-              automaticLayout: true,
-            }}
-          />
-        </div>
-      </div>
+      <Navbar handleExport={handleExport} isEditorReady={isEditorReady} />
+      <div className="flex flex-col   md:flex-row gap-4">
+        <div
+          ref={editorContentRef}
+          style={{ width: `${editorWidth}px` }}
+          className={`max-w-4xl min-w-xs border-2  ${
+            mode === "vs-dark" ? "dark" : "light"
+          } `}
+        >
+          <div className="p-4 bg-amber-200 ">
+            <div className="rounded-xl  overflow-hidden shadow-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-[#1e1e1e]">
+              <EditorHeader />
 
-      {/* Export / Tools */}
-      <CodeTools />
+              <Editor
+                defaultValue={code || "ooo"}
+                value={code || "giiii"}
+                language={codeLanguage}
+                onChange={(value) => dispatch(setCode(value))}
+                theme={`vs-${mode}`}
+                onMount={handleEditorMount}
+                options={{
+                  // fontSize: 16,
+                  lineNumbers: "off",
+                  glyphMargin: false,
+                  folding: false,
+                  lineNumbersMinChars: 0,
+                  overviewRulerLanes: 0,
+                  hideCursorInOverviewRuler: true,
+                  scrollBeyondLastLine: false,
+                  minimap: { enabled: false },
+                  padding: { top: 20, bottom: 20 },
+                  renderLineHighlight: "none",
+                  scrollbar: {
+                    vertical: "hidden",
+                    horizontal: "hidden",
+                  },
+                  formatOnPaste: "true",
+                  // format
+                  automaticLayout: true,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <CodeTools />
+      </div>
     </div>
   );
 }

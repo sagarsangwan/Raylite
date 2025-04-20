@@ -303,68 +303,7 @@ export default function CodeTools() {
   const dispatch = useDispatch();
   return (
     <>
-      <div className=" flex gap-3">
-        {/* <Select>
-        <SelectTrigger className="w-[280px]">
-          <SelectValue placeholder="Select a timezone" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>North America</SelectLabel>
-            <SelectItem value="est">Eastern Standard Time (EST)</SelectItem>
-            <SelectItem value="cst">Central Standard Time (CST)</SelectItem>
-            <SelectItem value="mst">Mountain Standard Time (MST)</SelectItem>
-            <SelectItem value="pst">Pacific Standard Time (PST)</SelectItem>
-            <SelectItem value="akst">Alaska Standard Time (AKST)</SelectItem>
-            <SelectItem value="hst">Hawaii Standard Time (HST)</SelectItem>
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel>Europe & Africa</SelectLabel>
-            <SelectItem value="gmt">Greenwich Mean Time (GMT)</SelectItem>
-            <SelectItem value="cet">Central European Time (CET)</SelectItem>
-            <SelectItem value="eet">Eastern European Time (EET)</SelectItem>
-            <SelectItem value="west">
-              Western European Summer Time (WEST)
-            </SelectItem>
-            <SelectItem value="cat">Central Africa Time (CAT)</SelectItem>
-            <SelectItem value="eat">East Africa Time (EAT)</SelectItem>
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel>Asia</SelectLabel>
-            <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
-            <SelectItem value="ist">India Standard Time (IST)</SelectItem>
-            <SelectItem value="cst_china">China Standard Time (CST)</SelectItem>
-            <SelectItem value="jst">Japan Standard Time (JST)</SelectItem>
-            <SelectItem value="kst">Korea Standard Time (KST)</SelectItem>
-            <SelectItem value="ist_indonesia">
-              Indonesia Central Standard Time (WITA)
-            </SelectItem>
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel>Australia & Pacific</SelectLabel>
-            <SelectItem value="awst">
-              Australian Western Standard Time (AWST)
-            </SelectItem>
-            <SelectItem value="acst">
-              Australian Central Standard Time (ACST)
-            </SelectItem>
-            <SelectItem value="aest">
-              Australian Eastern Standard Time (AEST)
-            </SelectItem>
-            <SelectItem value="nzst">
-              New Zealand Standard Time (NZST)
-            </SelectItem>
-            <SelectItem value="fjt">Fiji Time (FJT)</SelectItem>
-          </SelectGroup>
-          <SelectGroup>
-            <SelectLabel>South America</SelectLabel>
-            <SelectItem value="art">Argentina Time (ART)</SelectItem>
-            <SelectItem value="bot">Bolivia Time (BOT)</SelectItem>
-            <SelectItem value="brt">Brasilia Time (BRT)</SelectItem>
-            <SelectItem value="clt">Chile Standard Time (CLT)</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select> */}
+      <div className=" flex flex-row md:flex-col gap-3 items-center justify-center  ">
         <div>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -372,7 +311,7 @@ export default function CodeTools() {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="w-[200px] justify-between"
+                className="w-[140px] justify-between  "
               >
                 {codeLanguage
                   ? allCodingLanguage.find(
@@ -382,7 +321,7 @@ export default function CodeTools() {
                 <ChevronsUpDown className="opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[140px] p-0">
               <Command>
                 <CommandInput
                   placeholder="Search Language..."
@@ -418,7 +357,8 @@ export default function CodeTools() {
             </PopoverContent>
           </Popover>
         </div>
-        <div className="flex self-center items-center  flex-col">
+
+        <div className="flex self-center items-center  flex-col md:flex-row gap-2   ">
           Dark Mode
           <Switch
             checked={mode === "dark"}
@@ -429,15 +369,16 @@ export default function CodeTools() {
             }
           />
         </div>
-      </div>
-      <div className="w-full px-3 max-w-sm">
-        <Slider
-          max={896}
-          min={320}
-          step={1}
-          defaultValue={[editorWidth]}
-          onValueChange={(value) => dispatch(setEditorWidth(value[0]))}
-        />
+        <div className="w-full px-3 text-center max-w-sm flex-col md:flex-row rounded-xl  md:border-1 md:p-4">
+          <Slider
+            max={896}
+            min={320}
+            step={1}
+            value={[editorWidth]}
+            onValueChange={(value) => dispatch(setEditorWidth(value[0]))}
+          />
+          <span className="mt-1">{editorWidth}px</span>
+        </div>
       </div>
     </>
   );

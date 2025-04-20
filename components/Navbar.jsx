@@ -12,7 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 
-export default function Navbar({ handleExport }) {
+export default function Navbar({ handleExport, isEditorReady }) {
+  console.log(isEditorReady);
   const copyToClipboard = async () => {
     const currentLink = `https://raylite.vercel.app/${window.location.hash}`;
 
@@ -33,17 +34,23 @@ export default function Navbar({ handleExport }) {
           <Button
             variant="outline"
             size="sm"
-            className="flex items-center gap-2 text-xs"
+            className="flex items-center gap-2 "
           >
             Export
             <ChevronDown className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => handleExport("png")}>
+          <DropdownMenuItem
+            onClick={() => handleExport("png")}
+            disabled={!isEditorReady}
+          >
             Export as PNG
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleExport("jpeg")}>
+          <DropdownMenuItem
+            onClick={() => handleExport("jpeg")}
+            disabled={!isEditorReady}
+          >
             Export as JPEG
           </DropdownMenuItem>
           <DropdownMenuItem onClick={copyToClipboard}>

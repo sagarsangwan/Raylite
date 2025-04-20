@@ -41,7 +41,7 @@ function CodeFileName() {
 
   return (
     <div
-      className="text-sm font-medium text-gray-800 dark:text-gray-200 cursor-text"
+      className="  text-gray-800 font-medium dark:text-gray-200 cursor-text"
       onClick={() => setIsEditing(true)}
     >
       {isEditing ? (
@@ -52,7 +52,7 @@ function CodeFileName() {
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             autoFocus
-            className="pr-12 border-0 bg-transparent text-sm font-medium"
+            className="pr-12 border-0  bg-transparent  font-medium"
           />
           {codeLanguageExtension && (
             <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
