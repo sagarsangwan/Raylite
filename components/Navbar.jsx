@@ -1,5 +1,5 @@
 "use client";
-
+import SmallIcon from "../public/images/SmallIcon.png";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,6 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { toast } from "sonner";
 
 export default function Navbar({ handleExport }) {
@@ -21,9 +23,9 @@ export default function Navbar({ handleExport }) {
   return (
     <nav className="w-full px-6 py-3 border-b bg-white dark:bg-zinc-900 dark:border-zinc-700 flex justify-between items-center shadow-sm">
       {/* Logo */}
-      <div className="text-xl font-semibold text-zinc-900 dark:text-white">
-        CodeSnap
-      </div>
+      <Link href="/">
+        <Image alt="icon" src={SmallIcon} width={32} height={32} />
+      </Link>
 
       {/* Export Button with Dropdown */}
       <DropdownMenu>

@@ -116,7 +116,8 @@ export default function CodeEditor() {
                 vertical: "hidden",
                 horizontal: "hidden",
               },
-
+              formatOnPaste: "true",
+              // format
               automaticLayout: true,
             }}
           />

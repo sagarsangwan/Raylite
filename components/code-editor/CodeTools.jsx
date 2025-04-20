@@ -430,7 +430,7 @@ export default function CodeTools() {
           />
         </div>
       </div>
-      <div className="w-full max-w-sm">
+      <div className="w-full px-3 max-w-sm">
         <Slider
           max={896}
           min={320}
