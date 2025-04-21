@@ -99,12 +99,14 @@ export default function CodeEditor() {
         <div
           ref={editorContentRef}
           style={{ width: `${editorWidth}px` }}
-          className={`max-w-4xl min-w-xs border-2  ${
+          className={`max-w-4xl min-w-xs   ${
             mode === "vs-dark" ? "dark" : "light"
           } `}
         >
-          <div className="p-4 bg-amber-200 ">
-            <div className="rounded-xl  overflow-hidden shadow-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-[#1e1e1e]">
+          <div className="p-4 border-0 ">
+            <div
+              className={`rounded-xl ${mode}   overflow-hidden shadow-lg border border-gray-300 dark:border-zinc-700 bg-white dark:bg-[#1e1e1e]`}
+            >
               <EditorHeader />
 
               <Editor
