@@ -14,15 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Raylight – Code in Style | Syntax Highlighted Code Snapshots",
+  title: "Raylite – Code in Style | Syntax Highlighted Code Snapshots",
   description:
-    "Raylight helps developers create beautiful code snippets with syntax highlighting, custom themes, and export options. Perfect for social media, blogs, and documentation.",
-  metadataBase: new URL("https://raylight.vercel.app"),
+    "Raylite helps developers create beautiful code snippets with syntax highlighting, custom themes, and export options. Perfect for social media, blogs, and documentation.",
+  metadataBase: new URL("https://raylite.vercel.app"),
   alternates: {
-    canonical: "https://raylight.vercel.app",
+    canonical: "https://raylite.vercel.app",
   },
   keywords: [
-    "Raylight",
+    "Raylite",
     "Code to Image",
     "Syntax Highlighting",
     "Code Snippet Generator",
@@ -37,39 +37,39 @@ export const metadata = {
     google: "YOUR-GOOGLE-SITE-VERIFICATION-CODE",
   },
   openGraph: {
-    title: "Raylight – Code in Style",
+    title: "Raylite – Code in Style",
     description:
-      "Generate stylish code snippets for your blogs, Twitter, LinkedIn, or portfolio using Raylight. Choose language, font, theme, and export in seconds.",
-    url: "https://raylight.vercel.app",
+      "Generate stylish code snippets for your blogs, Twitter, LinkedIn, or portfolio using Raylite. Choose language, font, theme, and export in seconds.",
+    url: "https://raylite.vercel.app",
     type: "website",
-    siteName: "Raylight",
+    siteName: "Raylite",
     images: [
       {
-        url: "https://raylight.vercel.app/og-image.png", // make sure this image exists
+        url: "https://raylite.vercel.app/og-image.png", // make sure this image exists
         width: 1200,
         height: 630,
-        alt: "Raylight – Export Code Snippets as Images",
+        alt: "Raylite – Export Code Snippets as Images",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@iamsagarsangwan", // replace with your Twitter
-    title: "Raylight – Beautiful Code Snapshots for Developers",
+    title: "Raylite – Beautiful Code Snapshots for Developers",
     description:
-      "Create and share beautiful code snippets with Raylight. Choose syntax themes, fonts, and export in seconds.",
-    image: "https://raylight.vercel.app/og-image.png",
+      "Create and share beautiful code snippets with Raylite. Choose syntax themes, fonts, and export in seconds.",
+    image: "https://raylite.vercel.app/og-image.png",
   },
   structuredData: {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    name: "Raylight",
-    url: "https://raylight.vercel.app",
+    name: "Raylite",
+    url: "https://raylite.vercel.app",
     applicationCategory: "DeveloperTool",
     operatingSystem: "All",
     description:
-      "Raylight is a developer tool for generating beautiful syntax-highlighted code snippets as images. Ideal for blogs, portfolios, and social sharing.",
-    image: "https://raylight.vercel.app/og-image.png",
+      "Raylite is a developer tool for generating beautiful syntax-highlighted code snippets as images. Ideal for blogs, portfolios, and social sharing.",
+    image: "https://raylite.vercel.app/og-image.png",
     creator: {
       "@type": "Person",
       name: "Sagar Sangwan",

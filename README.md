@@ -2,13 +2,13 @@
 ---
 
 ```md
-# 🌟 Raylight
+# 🌟 raylite
 
-**Raylight** is a modern developer tool to **generate beautiful code snippets** as images. Perfect for sharing on social media, embedding in blogs, or enhancing documentation.
+**raylite** is a modern developer tool to **generate beautiful code snippets** as images. Perfect for sharing on social media, embedding in blogs, or enhancing documentation.
 
-With support for multiple languages, themes, fonts, and export options, Raylight makes it effortless to turn your code into art.
+With support for multiple languages, themes, fonts, and export options, raylite makes it effortless to turn your code into art.
 
-[🔗 Visit Now](https://raylight.vercel.app)
+[🔗 Visit Now](https://raylite.vercel.app)
 
 ---
 
@@ -29,8 +29,8 @@ With support for multiple languages, themes, fonts, and export options, Raylight
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/iamsagarsangwan/raylight.git
-cd raylight
+git clone https://github.com/iamsagarsangwan/raylite.git
+cd raylite
 ```
 
 ### 2. Install dependencies
@@ -51,7 +51,7 @@ yarn dev
 
 ### 4. Open in browser
 
-Visit [http://localhost:3000](http://localhost:3000) to view Raylight locally.
+Visit [http://localhost:3000](http://localhost:3000) to view raylite locally.
 
 ---
 
@@ -83,7 +83,7 @@ Visit [http://localhost:3000](http://localhost:3000) to view Raylight locally.
 
 ## 🔧 Customization
 
-You can easily extend Raylight to support:
+You can easily extend raylite to support:
 
 - More export formats (SVG, PDF)
 - Additional syntax themes
@@ -94,13 +94,13 @@ You can easily extend Raylight to support:
 
 ## 📸 Screenshots
 
-![Raylight UI](https://raylight.vercel.app/og-image.png)
+![raylite UI](https://raylite.vercel.app/og-image.png)
 
 ---
 
 ## 📈 SEO & Social Preview
 
-Raylight is fully optimized for search engines (Google, Bing) and social platforms (Open Graph, Twitter Cards). Add your content and blogs to boost discoverability.
+raylite is fully optimized for search engines (Google, Bing) and social platforms (Open Graph, Twitter Cards). Add your content and blogs to boost discoverability.
 
 ---
 
