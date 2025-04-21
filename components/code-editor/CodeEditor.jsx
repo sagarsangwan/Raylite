@@ -43,7 +43,9 @@ export default function CodeEditor() {
       if (width > 896) {
         width = 896;
       }
-      console.log(width);
+      if (height < 320) {
+        height = 320;
+      }
       dispatch(setEditorWidth(width));
       editor.layout({ height, width });
     };
@@ -75,7 +77,6 @@ export default function CodeEditor() {
       toast.warn("Editor is not ready yet. Please wait.");
       return;
     }
-    console.log(editorContentRef.current);
     try {
       const dataUrl =
         formatOfImage === "png"

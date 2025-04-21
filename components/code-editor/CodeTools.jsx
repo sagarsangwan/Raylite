@@ -335,7 +335,6 @@ export default function CodeTools() {
                         key={codinglanguage.value}
                         value={codinglanguage.value}
                         onSelect={(currentValue) => {
-                          // setValue(currentValue === value ? "" : currentValue);
                           dispatch(setCodeLanguage(currentValue));
                           setOpen(false);
                         }}
@@ -377,7 +376,7 @@ export default function CodeTools() {
             value={[editorWidth]}
             onValueChange={(value) => dispatch(setEditorWidth(value[0]))}
           />
-          <span className="mt-1">{editorWidth}px</span>
+          <span className="mt-2">{editorWidth}px</span>
         </div>
       </div>
     </>
