@@ -133,6 +133,9 @@ export default function CodeEditor() {
                     horizontal: "hidden",
                   },
                   formatOnPaste: "true",
+                  formatOnType: "true",
+                  formatOnSave: "true",
+
                   // format
                   automaticLayout: true,
                 }}
